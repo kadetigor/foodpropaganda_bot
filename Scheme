@@ -1,0 +1,18 @@
+/telegram_bot
+│── bot.py                 # Main entry point (keeps minimal logic)
+│── config.py              # Stores API keys and global settings
+│── handlers/              # Handles different events
+│   ├── __init__.py        # Package initializer
+│   ├── commands.py        # Handles /start, /subscribe, /daily_tip
+│   ├── messages.py        # Handles regular user messages
+│   ├── callbacks.py       # Handles inline button interactions
+│   ├── new_users.py       # Detects new users and sends welcome message
+│── services/              # Core functionalities
+│   ├── openai_service.py  # Handles OpenAI API calls
+│   ├── telegram_api.py    # Handles requests to Telegram API
+│   ├── payments.py        # Handles payment-related logic
+│── database.py            # Handles Supabase operations
+│── utils.py               # Helper functions
+│── requirements.txt       # Dependencies
+│── .env                   # Stores environment variables (DO NOT commit this)
+│── README.md              # Documentation
