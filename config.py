@@ -17,7 +17,7 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/"
 
 # Payment links
-STRIPE_CHECKOUT_URL = "https://buy.stripe.com/test_checkout_link"
+STRIPE_CHECKOUT_URL = "https://buy.stripe.com/test_9AQ9Dz9iucT8aHK6oo"
 
 # Welcome image
 WELCOME_IMAGE_URL = "https://drive.google.com/uc?export=view&id=1w4a3_IpWnq4gB-Xz759Aug_l4DEEZ536"

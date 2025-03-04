@@ -1,0 +1,2 @@
+Command to startup ngrok (to get webhook link and connect local machine to the web)
+Then copy the link that looks like this ( https://46df-31-30-164-134.ngrok-free.app) + /stripe-webhook and put it to stripe webhook

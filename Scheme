@@ -11,6 +11,7 @@
 │   ├── openai_service.py  # Handles OpenAI API calls
 │   ├── telegram_api.py    # Handles requests to Telegram API
 │   ├── payments.py        # Handles payment-related logic
+│   ├── webhook.py         # Handles Stripe webhook to update subscriptions
 │── database.py            # Handles Supabase operations
 │── utils.py               # Helper functions
 │── requirements.txt       # Dependencies
