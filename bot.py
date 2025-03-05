@@ -5,6 +5,10 @@ from services.telegram_api import get_updates
 from services.webhook import app  # Import the webhook Flask app
 from threading import Thread
 import time
+from utils.logger import setup_logger
+
+# Set up logger
+logger = setup_logger(__name__)
 
 def main():
     """Main loop to fetch and process Telegram updates."""
@@ -32,7 +36,7 @@ def main():
                     handle_callback(update)
             time.sleep(1)  # Prevents excessive API calls
         except Exception as e:
-            print(f"Error fetching updates: {e}")
+            logger.error(f"Error fetching updates: {e}")
             continue  # Prevents crash and continues fetching updates
 
 if __name__ == "__main__":

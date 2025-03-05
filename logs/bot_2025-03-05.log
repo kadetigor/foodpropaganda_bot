@@ -1,0 +1,118 @@
+2025-03-05 18:47:57,520 - services.payments - INFO - Creating Stripe checkout session for user 250392371
+2025-03-05 18:47:58,065 - services.payments - INFO - Checkout session created: cs_test_a1AeEzE9y0voxDapCl6HMHIGBgN54Kq9MTAyrcm4EpP8PLuihzBh8l0Nd8
+2025-03-05 18:51:44,613 - services.openai_service - INFO - Creating new OpenAI thread for user 250392371
+2025-03-05 18:51:45,196 - services.openai_service - INFO - Thread created with ID: thread_0gHei4mOLgWacjtRERa4RmAa
+2025-03-05 18:51:45,197 - services.openai_service - INFO - Using thread thread_0gHei4mOLgWacjtRERa4RmAa for user 250392371
+2025-03-05 18:52:12,427 - services.openai_service - INFO - Using thread thread_0gHei4mOLgWacjtRERa4RmAa for user 250392371
+2025-03-05 18:52:41,130 - services.openai_service - INFO - Using thread thread_0gHei4mOLgWacjtRERa4RmAa for user 250392371
+2025-03-05 19:38:37,203 - handlers.commands - INFO - Received /start command from chat_id: 250392371, text: /start
+2025-03-05 19:38:37,608 - handlers.commands - INFO - User status from database: None
+2025-03-05 19:38:37,725 - __main__ - ERROR - Error fetching updates: name 'response' is not defined
+2025-03-05 19:38:41,410 - __main__ - ERROR - Error fetching updates: name 'response' is not defined
+2025-03-05 19:38:50,155 - utils.message_tracker - INFO - Tracked message 358 for chat 250392371
+2025-03-05 19:38:52,178 - handlers.callbacks - INFO - Received callback with data: open_stripe
+2025-03-05 19:38:52,313 - utils.message_tracker - INFO - Deleted message 358 from chat 250392371
+2025-03-05 19:38:52,394 - services.payments - INFO - Creating Stripe checkout session for user 250392371
+2025-03-05 19:38:53,014 - services.payments - INFO - Checkout session created: cs_test_a1TiaX8tRoJpPSrH0aruxDXXwxcvlSYrC4eR6I4x7tbJ1nnf1CEvr3yhfl
+2025-03-05 19:38:53,184 - handlers.callbacks - ERROR - ERROR in handle_callback: name 'response' is not defined
+2025-03-05 19:38:53,341 - __main__ - ERROR - Error fetching updates: name 'response' is not defined
+2025-03-05 19:39:18,188 - services.webhook - INFO - Successful Stripe Event: checkout.session.completed
+2025-03-05 19:39:18,510 - services.webhook - INFO - Successful Stripe Event: invoice.payment_succeeded
+2025-03-05 19:39:18,555 - services.webhook - ERROR - Exception on /stripe-webhook [POST]
+Traceback (most recent call last):
+  File "/Users/Gero/anaconda3/envs/foodpropaganda_bot/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Gero/anaconda3/envs/foodpropaganda_bot/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Gero/anaconda3/envs/foodpropaganda_bot/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Gero/anaconda3/envs/foodpropaganda_bot/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Gero/Documents/FoodPropaganda_bot/services/webhook.py", line 76, in stripe_webhook
+    msg_id = send_message(user_id, f"🎉 Спасибо за подписку, @{visitor['nickname']}! Ваша подписка активирована.")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Gero/Documents/FoodPropaganda_bot/services/telegram_api.py", line 26, in send_message
+    if response.get("ok") and "result" in response:
+       ^^^^^^^^
+NameError: name 'response' is not defined
+2025-03-05 19:39:35,223 - services.webhook - INFO - Successful Stripe Event: checkout.session.completed
+2025-03-05 19:39:35,295 - services.webhook - ERROR - User not found in Supabase visitors table!
+2025-03-05 19:39:44,332 - handlers.commands - INFO - Received /start command from chat_id: 250392371, text: /start
+2025-03-05 19:39:44,465 - handlers.commands - INFO - User status from database: subscriber
+2025-03-05 19:39:44,465 - handlers.commands - INFO - Sending menu with buttons...
+2025-03-05 19:39:44,676 - utils.message_tracker - INFO - Tracked message 363 for chat 250392371
+2025-03-05 19:52:56,263 - handlers.commands - INFO - Received /start command from chat_id: 250392371, text: /start
+2025-03-05 19:52:56,612 - handlers.commands - INFO - User status from database: None
+2025-03-05 19:52:56,766 - utils.message_tracker - INFO - Tracked message 365 for chat 250392371
+2025-03-05 19:53:09,041 - utils.message_tracker - ERROR - Failed to delete message 365: 'Response' object has no attribute 'get'
+2025-03-05 19:53:09,413 - utils.message_tracker - INFO - Tracked message 367 for chat 250392371
+2025-03-05 19:53:19,986 - handlers.callbacks - INFO - Received callback with data: open_stripe
+2025-03-05 19:53:20,171 - utils.message_tracker - ERROR - Failed to delete message 367: 'Response' object has no attribute 'get'
+2025-03-05 19:53:20,248 - handlers.callbacks - ERROR - ERROR in handle_callback: 'Response' object has no attribute 'get'
+2025-03-05 19:53:20,504 - utils.message_tracker - INFO - Tracked message 368 for chat 250392371
+2025-03-05 19:57:22,793 - handlers.commands - INFO - Received /start command from chat_id: 250392371, text: /start
+2025-03-05 19:57:23,233 - handlers.commands - INFO - User status from database: None
+2025-03-05 19:57:23,343 - utils.message_tracker - INFO - Tracked message 370 for chat 250392371
+2025-03-05 19:57:26,913 - utils.message_tracker - INFO - Deleted message 370 from chat 250392371
+2025-03-05 19:57:27,329 - utils.message_tracker - INFO - Tracked message 372 for chat 250392371
+2025-03-05 19:57:28,741 - handlers.callbacks - INFO - Received callback with data: open_stripe
+2025-03-05 19:57:28,878 - utils.message_tracker - INFO - Deleted message 372 from chat 250392371
+2025-03-05 19:57:28,962 - services.payments - INFO - Creating Stripe checkout session for user 250392371
+2025-03-05 19:57:29,532 - services.payments - INFO - Checkout session created: cs_test_a1ijlpytiPkOOwzf6xy04CKkt9sNk8zkVHP08yW2QGHFrXjwJhGyFZqNMB
+2025-03-05 19:57:29,704 - utils.message_tracker - INFO - Tracked message 373 for chat 250392371
+2025-03-05 19:57:51,684 - services.webhook - INFO - Successful Stripe Event: checkout.session.completed
+2025-03-05 19:57:52,359 - services.webhook - INFO - Successful Stripe Event: invoice.payment_succeeded
+2025-03-05 19:58:20,883 - utils.message_tracker - INFO - Deleted message 373 from chat 250392371
+2025-03-05 19:58:21,028 - services.openai_service - INFO - Creating new OpenAI thread for user 250392371
+2025-03-05 19:58:21,826 - services.openai_service - INFO - Thread created with ID: thread_M4g5YvFkt2S4LkqlwF0p0u0N
+2025-03-05 19:58:21,827 - services.openai_service - INFO - Using thread thread_M4g5YvFkt2S4LkqlwF0p0u0N for user 250392371
+2025-03-05 19:58:30,842 - handlers.commands - INFO - Received /start command from chat_id: 250392371, text: /start
+2025-03-05 19:58:30,989 - handlers.commands - INFO - User status from database: subscriber
+2025-03-05 19:58:30,989 - handlers.commands - INFO - Sending menu with buttons...
+2025-03-05 19:58:31,217 - utils.message_tracker - INFO - Tracked message 378 for chat 250392371
+2025-03-05 23:20:39,246 - handlers.commands - INFO - Received /start command from chat_id: 250392371, text: /start
+2025-03-05 23:20:39,603 - handlers.commands - INFO - User status from database: None
+2025-03-05 23:20:39,704 - utils.message_tracker - INFO - Tracked message 380 for chat 250392371
+2025-03-05 23:20:42,618 - utils.message_tracker - INFO - Deleted message 380 from chat 250392371
+2025-03-05 23:20:42,820 - utils.message_tracker - INFO - Tracked message 382 for chat 250392371
+2025-03-05 23:20:50,203 - utils.message_tracker - INFO - Deleted message 382 from chat 250392371
+2025-03-05 23:20:50,612 - utils.message_tracker - INFO - Tracked message 384 for chat 250392371
+2025-03-05 23:21:02,414 - handlers.callbacks - INFO - Received callback with data: open_stripe
+2025-03-05 23:21:02,506 - utils.message_tracker - INFO - Deleted message 384 from chat 250392371
+2025-03-05 23:21:02,693 - services.payments - INFO - Creating Stripe checkout session for user 250392371
+2025-03-05 23:21:03,248 - services.payments - INFO - Checkout session created: cs_test_a12b0LIH6M17ymagyL3DD0JZpi8FTny1Q19rBcN3CKNz573bnIIJGDxprH
+2025-03-05 23:21:03,352 - utils.message_tracker - INFO - Tracked message 385 for chat 250392371
+2025-03-05 23:21:28,559 - services.webhook - INFO - Successful Stripe Event: checkout.session.completed
+2025-03-05 23:21:28,994 - utils.message_tracker - INFO - Tracked message 387 for chat 250392371
+2025-03-05 23:21:29,030 - services.webhook - INFO - Successful Stripe Event: invoice.payment_succeeded
+2025-03-05 23:21:45,878 - handlers.callbacks - INFO - Received callback with data: settings
+2025-03-05 23:21:45,969 - utils.message_tracker - INFO - Deleted message 385 from chat 250392371
+2025-03-05 23:21:46,068 - utils.message_tracker - INFO - Deleted message 387 from chat 250392371
+2025-03-05 23:21:46,373 - utils.message_tracker - INFO - Tracked message 388 for chat 250392371
+2025-03-05 23:21:55,287 - handlers.callbacks - INFO - Received callback with data: cancel_subscription
+2025-03-05 23:21:55,377 - utils.message_tracker - INFO - Deleted message 388 from chat 250392371
+2025-03-05 23:21:55,582 - services.payments - INFO - Fetching subscription ID for user 250392371
+2025-03-05 23:21:55,640 - services.payments - INFO - Found subscription ID: sub_1QzQJdHosnZdZMx3IUvZfSds
+2025-03-05 23:21:55,640 - services.payments - INFO - Attempting to cancel subscription sub_1QzQJdHosnZdZMx3IUvZfSds for user 250392371
+2025-03-05 23:21:56,147 - services.payments - ERROR - Error cancelling subscription sub_1QzQJdHosnZdZMx3IUvZfSds: {'code': '23514', 'details': 'Failing row contains (250392371, dkjfkdj@dfjkdjf.com, igor_lngvty, stripe, sub_1QzQJdHosnZdZMx3IUvZfSds, cus_RtCjm1v9ZG3Jlm, cancelling, 2025-04-05 22:21:28, 2025-03-05 22:21:28, 0, 2025-03-05 22:21:28).', 'hint': None, 'message': 'new row for relation "subscriptions" violates check constraint "subscriptions_status_check"'}
+2025-03-05 23:21:56,321 - utils.message_tracker - INFO - Tracked message 389 for chat 250392371
+2025-03-05 23:32:00,840 - utils.message_tracker - INFO - Deleted message 389 from chat 250392371
+2025-03-05 23:32:00,841 - handlers.commands - INFO - Received /start command from chat_id: 250392371, text: /start
+2025-03-05 23:32:01,138 - handlers.commands - INFO - User status from database: subscriber
+2025-03-05 23:32:01,139 - handlers.commands - INFO - Sending subscriber menu with buttons...
+2025-03-05 23:32:01,275 - utils.message_tracker - INFO - Tracked message 391 for chat 250392371
+2025-03-05 23:32:04,456 - handlers.callbacks - INFO - Received callback with data: settings
+2025-03-05 23:32:04,587 - utils.message_tracker - INFO - Deleted message 391 from chat 250392371
+2025-03-05 23:32:04,882 - utils.message_tracker - INFO - Tracked message 392 for chat 250392371
+2025-03-05 23:32:07,225 - handlers.callbacks - INFO - Received callback with data: cancel_subscription
+2025-03-05 23:32:07,373 - utils.message_tracker - INFO - Deleted message 392 from chat 250392371
+2025-03-05 23:32:07,527 - services.payments - INFO - Fetching subscription ID for user 250392371
+2025-03-05 23:32:07,569 - services.payments - INFO - Found subscription ID: sub_1QzQJdHosnZdZMx3IUvZfSds
+2025-03-05 23:32:07,569 - services.payments - INFO - Attempting to cancel subscription sub_1QzQJdHosnZdZMx3IUvZfSds for user 250392371
+2025-03-05 23:32:08,268 - services.payments - INFO - Subscription sub_1QzQJdHosnZdZMx3IUvZfSds marked for cancellation at period end
+2025-03-05 23:32:08,497 - utils.message_tracker - INFO - Tracked message 393 for chat 250392371
+2025-03-05 23:32:08,688 - utils.message_tracker - INFO - Tracked message 394 for chat 250392371
