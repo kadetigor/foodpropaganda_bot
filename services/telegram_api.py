@@ -8,11 +8,15 @@ def get_updates(offset=None):
     response = requests.get(url, params=params)
     return response.json()
 
-def send_message(chat_id, text):
+def send_message(chat_id, text, parse_mode: str = None):
     """Send a message to a Telegram user."""
     url = f"{TELEGRAM_API_URL}sendMessage"
     payload = {"chat_id": chat_id, "text": text}
-    requests.post(url, json=payload)
+
+    if parse_mode:
+        payload["parse_mode"] = parse_mode  # ✅ Add parse_mode only if provided
+
+    requests.post(url, json=payload).json()
 
 def delete_message(chat_id, message_id):
     """Delete a specific message by message_id."""
@@ -31,4 +35,5 @@ def send_photo_with_buttons(chat_id, photo_url, caption, buttons):
         "reply_markup": keyboard
     }
 
-    requests.post(url, json=payload)
+    requests.post(url, json=payload).json()
+    print(f"📌 DEBUG: Telegram API response (sendMessage): {response}") # ✅ Debug response

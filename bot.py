@@ -21,14 +21,13 @@ def main():
                     chat_id = update["message"]["chat"]["id"]
 
                     if text == "/start":
-                        handle_start(chat_id)
+                        handle_start(update)
                     elif text == "/subscribe":
-                        handle_subscribe(chat_id)
+                        handle_subscribe(update)
                     elif text == "/daily_tip":
-                        handle_daily_tip(chat_id)
+                        handle_daily_tip(update)
                     else:
                         handle_message(update)
-
                 elif "callback_query" in update:
                     handle_callback(update)
             time.sleep(1)  # Prevents excessive API calls

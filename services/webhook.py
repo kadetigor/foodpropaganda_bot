@@ -5,6 +5,7 @@ from supabase import create_client  # Supabase client to interact with the datab
 import os  # For accessing environment variables
 from dotenv import load_dotenv  # To load environment variables from .env file
 from services.telegram_api import send_message  # Import your function to send Telegram messages
+from database import get_visitor, transfer_user_to_subscriptions  # Import your database functions
 
 # Load environment variables from .env file
 load_dotenv()
@@ -24,85 +25,51 @@ app = Flask(__name__)
 # Define the route that Stripe will use to send webhook events
 @app.route("/stripe-webhook", methods=["POST"])
 def stripe_webhook():
-    """
-    Handles Stripe webhook events and updates the user's subscription in Supabase.
-    """
-    payload = request.get_data(as_text=True)  # Get the raw POST data from Stripe
-    sig_header = request.headers.get("Stripe-Signature")  # Get the Stripe-Signature header for validation
-
-    # ✅ Log Incoming Webhook Requests
-    print(f"🔹 Received Webhook: {payload}")  # Debugging line
-    print(f"🔹 Signature Header: {sig_header}")  # Debugging line
+    """Handles Stripe webhooks and transfers users from visitors to subscriptions."""
+    payload = request.get_data(as_text=True)
+    sig_header = request.headers.get("Stripe-Signature")
 
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, STRIPE_WEBHOOK_SECRET)
-    except ValueError as e:
-        print(f"🚨 Invalid JSON: {e}")  # Debugging line
-        return f"Invalid JSON: {e}", 400
-    except stripe.error.SignatureVerificationError as e:
-        print(f"🚨 Invalid Signature: {e}")  # Debugging line
-        return f"Invalid signature: {e}", 400
     except Exception as e:
-        print(f"🚨 Other Error: {e}")  # Debugging line
-        return f"Error: {e}", 403  # <== This should return error details
+        print(f"🚨 Error parsing webhook event: {e}")
+        return f"Error: {e}", 400
 
-    # ✅ If successful, print Stripe event type
-    print(f"✅ Successful Stripe Event: {event['type']}")  # Debugging line
-
-    def process_subscription(user_id, telegram_nickname):
-        expires_at = datetime.utcnow() + timedelta(days=30)
-        try:
-            supabase.table("subscriptions").upsert({
-                "user_id": user_id,
-                "username": telegram_nickname,
-                "provider": "stripe",
-                "expires_at": expires_at.strftime('%Y-%m-%d %H:%M:%S'),
-                "last_active": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
-                "return_frequency": 0
-            }).execute()
-            print(f"✅ Subscription saved for user: {user_id}")
-            
-            message = f"🎉 Спасибо за подписку, @{telegram_nickname}! Ваша подписка активирована до {expires_at.strftime('%Y-%m-%d')}."
-            send_message(user_id, message)
-            return True
-        except Exception as db_error:
-            print(f"🚨 Database Error: {db_error}")
-            return False
+    print(f"✅ Successful Stripe Event: {event['type']}")
 
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
-        customer_id = session.get("customer")
-        customer = stripe.Customer.retrieve(customer_id)
-        
-        print(f"📝 Customer data: {customer}")
-        metadata = session.get("metadata", {})
-        
-        user_id = metadata.get("user_id")
-        telegram_nickname = metadata.get("telegram_nickname")
-        
-        if user_id and telegram_nickname:
-            if not process_subscription(user_id, telegram_nickname):
-                return "Database Error", 500
-        else:
-            print("🚨 Required metadata missing from checkout session")
-            return "Metadata missing!", 400
+        user_id = session.get("metadata", {}).get("user_id")  # ✅ Ensure metadata exists
 
-    elif event["type"] == "invoice.payment_succeeded":
-        invoice = event["data"]["object"]
-        customer_id = invoice.get("customer")
-        customer = stripe.Customer.retrieve(customer_id)
-        
-        print(f"📝 Customer data: {customer}")
-        metadata = customer.metadata
-        
-        user_id = metadata.get("user_id")
-        telegram_nickname = metadata.get("telegram_nickname")
-        
-        if user_id and telegram_nickname:
-            if not process_subscription(user_id, telegram_nickname):
-                return "Database Error", 500
+        # ✅ Check if user_id is missing
+        if not user_id:
+            print("🚨 Missing user_id in metadata! Stripe session data:")
+            return "", 200  # ✅ Prevents further errors
+
+        try:
+            user_id = int(user_id)  # ✅ Ensure it's an integer
+        except ValueError:
+            print(f"🚨 Invalid user_id format: {user_id}")
+            return "", 200  # ✅ Prevents errors
+
+        stripe_sub_id = session.get("subscription")
+        stripe_cust_id = session.get("customer")
+        next_payment = session.get("current_period_end")
+
+        visitor = get_visitor(user_id)  # ✅ Fetch user safely
+        if visitor:
+            transfer_user_to_subscriptions(
+                user_id=user_id,
+                email=visitor["email"],
+                nickname=visitor["nickname"],
+                stripe_sub_id=stripe_sub_id,
+                stripe_cust_id=stripe_cust_id,
+                provider="stripe",
+                status="active",
+                next_payment=next_payment
+            )
+            send_message(user_id, f"🎉 Спасибо за подписку, @{visitor['nickname']}! Ваша подписка активирована.")
         else:
-            print("🚨 Required metadata missing from customer")
-            return "Metadata missing!", 400
+            print("🚨 User not found in Supabase visitors table!")
 
     return "", 200
