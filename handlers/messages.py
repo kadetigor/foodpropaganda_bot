@@ -45,7 +45,7 @@ def handle_message(update):
                 track_message(chat_id, msg_id)  # Track this message
             return  # ✅ STOP further processing (Prevents AI from responding)
         else:
-            msg_id = send_message(chat_id, "⚠️ Пожалуйста, отправьте ваш email, чтобы продолжить.")
+            msg_id = send_message(chat_id, "⚠️ Похоже вы ввели недействительный email. Пожалуйста, отправьте реальный email, чтобы продолжить. Например: example@example.com")
             if msg_id:
                 track_message(chat_id, msg_id)  # Track this message
             return  # ✅ Prevent AI from processing invalid messages
@@ -53,12 +53,3 @@ def handle_message(update):
     # ✅ If the user exists, send their message to AI normally
     ai_response = get_openai_response(user_message, chat_id)
     send_message(chat_id, ai_response)
-
-
-
-# def handle_message(update):
-#     """Handles regular messages by sending them to OpenAI API."""
-#     chat_id = update["message"]["chat"]["id"]
-#     user_message = update["message"]["text"]
-#     ai_response = get_openai_response(user_message)
-#     send_message(chat_id, ai_response)

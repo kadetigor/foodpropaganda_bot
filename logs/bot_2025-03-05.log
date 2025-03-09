@@ -116,3 +116,7 @@ NameError: name 'response' is not defined
 2025-03-05 23:32:08,268 - services.payments - INFO - Subscription sub_1QzQJdHosnZdZMx3IUvZfSds marked for cancellation at period end
 2025-03-05 23:32:08,497 - utils.message_tracker - INFO - Tracked message 393 for chat 250392371
 2025-03-05 23:32:08,688 - utils.message_tracker - INFO - Tracked message 394 for chat 250392371
+2025-03-06 00:25:36,378 - handlers.callbacks - INFO - Received callback with data: settings
+2025-03-06 00:25:36,482 - utils.message_tracker - INFO - Deleted message 393 from chat 250392371
+2025-03-06 00:25:36,574 - utils.message_tracker - INFO - Deleted message 394 from chat 250392371
+2025-03-06 00:25:37,154 - utils.message_tracker - INFO - Tracked message 395 for chat 250392371
