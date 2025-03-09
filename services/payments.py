@@ -66,7 +66,7 @@ def handle_payment(chat_id, username=None):
         logger.error(f"Failed to create checkout URL for user {chat_id}")
         msg_id = send_message(
             chat_id, 
-            "⚠️ Произошла ошибка при создании ссылки для оплаты. Пожалуйста, попробуйте позже."
+            "⚠️ Произошла ошибка при создании ссылки для оплаты. Пожалуйста, обратитесь в поддержку."
         )
         if msg_id:
             track_message(chat_id, msg_id)  # Track this message

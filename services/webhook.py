@@ -7,7 +7,7 @@ from dotenv import load_dotenv  # To load environment variables from .env file
 from services.telegram_api import send_message, send_photo_with_buttons  # Import your function to send Telegram messages
 from database import get_visitor, transfer_user_to_subscriptions  # Import your database functions
 from utils.logger import setup_logger
-from utils.message_tracker import track_message
+from utils.message_tracker import track_message, delete_bot_messages
 from config import WELCOME_IMAGE_URL
 
 # Set up logger
@@ -74,6 +74,9 @@ def stripe_webhook():
         except ValueError:
             logger.error(f"Invalid user_id format: {user_id}")
             return "", 200  # Prevents errors
+        
+        # Delete all bot messages for this user - this will delete the "Оформить подписку" message
+        delete_bot_messages(user_id)
 
         stripe_sub_id = session.get("subscription")
         stripe_cust_id = session.get("customer")
